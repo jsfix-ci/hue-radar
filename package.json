@@ -1,0 +1,36 @@
+{
+  "name": "hue-radar",
+  "version": "0.1.0",
+  "description": "🎨 Find and list all colors used in a project",
+  "main": "bin/index.js",
+  "bin": {
+    "get-colors": "bin/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node ./src/index.ts"
+  },
+  "keywords": [
+    "color",
+    "colors",
+    "color-finder",
+    "css",
+    "css-audit"
+  ],
+  "author": {
+    "name": "Dave Lunny",
+    "email": "d@velunny.com",
+    "url": "https://himynameisdave.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "hex-color-regex": "^1.1.0",
+    "rgb-regex": "^1.0.1",
+    "rgba-regex": "^1.0.0"
+  },
+  "devDependencies": {
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3",
+    "@types/node": "^14.11.8"
+  }
+}
