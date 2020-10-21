@@ -1,24 +1,14 @@
 #!/usr/bin/env ts-node-script
+import commander from './helpers/commander';
+import globby from './helpers/globby';
 import getColors from './components/getColors';
 
-const sampleText = `
-a {
-  color: '#fff';
-}
+//  Parse the args right away
+const program = commander();
 
-section: {
-  background: rgba(0, 0, 0, 0.75555);
-  color: rgb(123, 250, 250);
-  border: #000 #fff #222 #f1f1f1;
-}
+(async function() {
+  const paths = await globby(program.patterns);
+  
+  console.log(paths);
 
-p {
-  color: lime;
-}
-
-`;
-
-
-console.log(
-  getColors(sampleText)
-);
+}())

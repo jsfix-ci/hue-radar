@@ -5,7 +5,9 @@
     ],
     "target": "ES5",
     "moduleResolution": "node",
-    "outDir": "bin"
+    "resolveJsonModule": true,
+    "outDir": "bin",
+    "rootDir": "src"
   },
   "include": [
     "src/**/*.ts"
