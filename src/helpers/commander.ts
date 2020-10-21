@@ -1,6 +1,6 @@
 import { program } from 'commander';
 // import * as pkg from '../../package.json';
-import { DEFAULT_GLOBS } from './globby';
+import { DEFAULT_GLOBS } from '../components/globby';
 
 /**
  * Setup commander and parse the process.argv.

@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import noop from '../utils/noop';
+import { noop } from '../utils';
 
 type LogType = 'info' | 'warn' | 'error' | 'success';
 

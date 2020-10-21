@@ -1,6 +1,6 @@
 import fs from 'fs';
 import byline from 'byline';
-import getColors from '../components/getColors';
+import { extractColors } from '../helpers';
 import type { Color, ReportEntry } from '../types';
 
 const BYLINE_OPTIONS = {
@@ -26,18 +26,18 @@ export default function lineReader(filePath: string): Promise<ReportEntry[]> {
     function handleLine(line: string): void {
       lineNumber++;
       //  Get the colors from the line
-      const colors: Set<Color> = getColors(line);
+      const colors: Set<Color> = extractColors(line);
       if (colors.size > 0) {
         fileReport = fileReport.concat({
-          lineNumber,
           colors,
+          lineNumber,
           file: filePath,
           verbatim: line,
         });
       }
     }
     stream.on('data', handleLine);
-    stream.on('close', () => resolve(fileReport))
-    stream.on('error', reject)
+    stream.on('close', () => resolve(fileReport));
+    stream.on('error', reject);
   });
 }

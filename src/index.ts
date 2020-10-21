@@ -1,10 +1,10 @@
 #!/usr/bin/node
-import commander from './helpers/commander';
-import globby from './helpers/globby';
-import lineReader from './helpers/lineReader';
-import createLogger from './helpers/createLogger';
-import formatReports from './helpers/formatReports';
-import { writeJSONFile } from './utils/fs';
+import createLogger from './components/createLogger';
+import globby from './components/globby';
+import lineReader from './components/lineReader';
+import formatReports from './components/formatReports';
+import { commander } from './helpers';
+import { writeJSONFile } from './utils';
 
 //  Parse the args right away
 const program = commander();

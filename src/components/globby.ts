@@ -1,5 +1,5 @@
 import globby from 'globby';
-import splitGlob from '../utils/splitGlob';
+import { splitGlob } from '../utils';
 
 
 export const DEFAULT_GLOBS = [
