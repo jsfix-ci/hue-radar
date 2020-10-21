@@ -7,8 +7,9 @@ import { DEFAULT_GLOBS } from './globby';
  */
 export default function commander() {
   // program.version(pkg.version);
-  program.version('0.1.0');
-  program.option('-p, --patterns <glob-patterns>', `patterns for which files to search for colors on (default: ${DEFAULT_GLOBS.join(',')})`);
+  program.version('0.1.0')
+    .option('-d, --debug', 'Display debug logging')
+    .option('-p, --patterns <glob-patterns>', `patterns for which files to search for colors on (default: ${DEFAULT_GLOBS.join(',')})`);
   program.parse(process.argv);
   return program;
 }
