@@ -1,6 +1,6 @@
-import * as hexRegex from 'hex-color-regex';
-import * as rgbRegex from 'rgb-regex';
-import * as rgbaRegex from 'rgba-regex';
+import hexRegex from 'hex-color-regex';
+import rgbRegex from 'rgb-regex';
+import rgbaRegex from 'rgba-regex';
 
 export default {
   HEX: (text: string) => text.match(hexRegex()),

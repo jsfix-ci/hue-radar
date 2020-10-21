@@ -1,8 +1,11 @@
-import * as globby from 'globby';
+import globby from 'globby';
 import splitGlob from '../utils/splitGlob';
 
 
-export const DEFAULT_GLOBS = ['**.css', '!node_modules/**/*'];
+export const DEFAULT_GLOBS = [
+  '**/*.css',
+  '!node_modules/**/*'
+];
 
 const GLOBBY_OPTIONS = {
   cwd: process.cwd(),
@@ -17,8 +20,8 @@ const GLOBBY_OPTIONS = {
  */
 async function getGlobs(globs: string) {
   return globby([
-    ...DEFAULT_GLOBS,
     ...splitGlob(globs),
+    ...DEFAULT_GLOBS,
   ], GLOBBY_OPTIONS);
 }
 
