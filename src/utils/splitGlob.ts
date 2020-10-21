@@ -1,8 +1,8 @@
 const COMMA = ',';
 
 //  Call .trim() on a given string
-function trim(str: string): string {
-  return str.trim();
+function trim(text: string): string {
+  return text.trim();
 }
 
 /**

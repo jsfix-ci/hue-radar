@@ -4,7 +4,7 @@ import { splitGlob } from '../utils';
 
 export const DEFAULT_GLOBS = [
   '**/*.css',
-  '!node_modules/**/*'
+  '!node_modules/**/*',
 ];
 
 const GLOBBY_OPTIONS = {
@@ -18,7 +18,7 @@ const GLOBBY_OPTIONS = {
  *
  * @param {string} globs - String of globs to include
  */
-async function getGlobs(globs: string) {
+async function getGlobs(globs: string): Promise<string[]> {
   return globby([
     ...splitGlob(globs),
     ...DEFAULT_GLOBS,

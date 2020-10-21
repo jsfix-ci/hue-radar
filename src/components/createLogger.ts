@@ -1,13 +1,14 @@
 import chalk from 'chalk';
 import { noop } from '../utils';
 
+
 type LogType = 'info' | 'warn' | 'error' | 'success';
 
-type Log = (...params: any[]) => void;
+type Log = (...paramaters: any[]) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 export type Logger = {
   [K in LogType]: Log;
-}
+};
 
 /**
  * Returns a logger with pretty chalk color output for each type.
@@ -17,8 +18,8 @@ export type Logger = {
  */
 export default function createLogger(isDebugMode: boolean): { [K in LogType]: Log } {
   //  Returns a fn to call console.log if in debug mode. Otherwise uses a noop.
-  const logIfDebug = (chalkSettings: chalk.Chalk): Log => (...logs: any[]) => isDebugMode
-    ? console.log(chalkSettings(...logs))
+  const logIfDebug = (chalkSettings: chalk.Chalk): Log => (...logs: any[]): void => isDebugMode // eslint-disable-line @typescript-eslint/no-explicit-any
+    ? console.log(chalkSettings(...logs)) // eslint-disable-line no-console
     : noop();
   return {
     info: logIfDebug(chalk.cyan),

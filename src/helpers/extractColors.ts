@@ -1,4 +1,5 @@
 import colorRegex from './colorRegex';
+import type { ColorMatcher } from './colorRegex';
 import { isTruthy, toLines } from '../utils';
 import type { Color } from '../types';
 
@@ -8,11 +9,10 @@ import type { Color } from '../types';
  * @param {string} line - A given "line" or string of text
  */
 export function getColorsFromLine(line: string): Color[] {
-  return []
-  .concat(colorRegex.HEX(line))
-  .concat(colorRegex.RGB(line))
-  .concat(colorRegex.RGBA(line))
-  .filter(isTruthy);
+  const callWithLine = (fn: ColorMatcher): Color => fn(line);
+  return Object.values(colorRegex)
+    .map(callWithLine)
+    .filter(isTruthy);
 }
 
 /**
@@ -23,6 +23,6 @@ export function getColorsFromLine(line: string): Color[] {
 export default function extractColors(blob: string): Set<Color> {
   return new Set(
     toLines(blob)
-    .flatMap(getColorsFromLine)
+      .flatMap(getColorsFromLine),
   );
 }

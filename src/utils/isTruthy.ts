@@ -3,6 +3,6 @@
  *
  * @param {any} element - A given element.
  */
-export default function isTruthy(element: any): boolean {
-  return !!element;
+export default function isTruthy(element: unknown): boolean {
+  return Boolean(element);
 }

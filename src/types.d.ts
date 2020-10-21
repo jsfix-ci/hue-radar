@@ -10,7 +10,7 @@ export type ReportEntry = {
   file: string;
   lineNumber: number;
   verbatim: string;
-}
+};
 
 /**
  * ColorsReport represents the final outputted colors report.
@@ -27,5 +27,5 @@ export type ReportEntry = {
  * }
  */
 export type ColorsReport = {
-  [K: string]: Array<Omit<ReportEntry, 'colors'>>
+  [K: string]: Array<Omit<ReportEntry, 'colors'>>;
 };

@@ -3,13 +3,13 @@ import createLogger from './components/createLogger';
 import globby from './components/globby';
 import lineReader from './components/lineReader';
 import formatReports from './components/formatReports';
-import { commander } from './helpers';
+import { initProgram } from './helpers';
 import { writeJSONFile } from './utils';
 
 //  Parse the args right away
-const program = commander();
+const program = initProgram();
 
-(async function main() {
+(async function main(): Promise<void> {
   const log = createLogger(program.debug);
   log.info('🎨 Searching for colors.');
   const paths = await globby(program.patterns);
@@ -18,4 +18,4 @@ const program = commander();
   const colorsCount = Object.keys(colors).length;
   log.success(`🎨 Discovered ${colorsCount} colors in this project!`);
   await writeJSONFile('hue-radar.report.json', colors);
-}())
+}());
