@@ -24,6 +24,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "byline": "^5.0.0",
     "commander": "^6.1.0",
     "globby": "^11.0.1",
     "hex-color-regex": "^1.1.0",
@@ -31,6 +32,7 @@
     "rgba-regex": "^1.0.0"
   },
   "devDependencies": {
+    "@types/byline": "^4.2.32",
     "@types/node": "^14.11.8",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
