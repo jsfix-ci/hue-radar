@@ -11,6 +11,7 @@
     "lint": "eslint src/**/*.ts --report-unused-disable-directives",
     "lint:fix": "eslint src/**/*.ts --fix --report-unused-disable-directives",
     "lint:pre-commit": "eslint --fix --report-unused-disable-directives",
+    "test:unit": "jest",
     "start": "ts-node ./src/index.ts"
   },
   "dependencies": {
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@types/byline": "^4.2.32",
+    "@types/jest": "^26.0.15",
     "@types/node": "^14.14.1",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
@@ -38,7 +40,9 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-unicorn": "^23.0.0",
     "husky": "^4.3.0",
+    "jest": "^26.6.0",
     "lint-staged": "^10.4.2",
+    "ts-jest": "^26.4.1",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
   },
