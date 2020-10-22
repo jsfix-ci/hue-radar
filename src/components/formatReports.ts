@@ -14,7 +14,7 @@ export default function formatReports(fileReports: ReportEntry[][]): ColorsRepor
     colors, ...entry
   }) => {
     [...colors].forEach(color => {
-      allColors[color] = allColors[color].length > 0
+      allColors[color] = allColors[color]?.length > 0 // eslint-disable-line @typescript-eslint/no-unnecessary-condition
         ? [
           ...allColors[color],
           entry,
