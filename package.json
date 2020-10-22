@@ -1,7 +1,7 @@
 {
   "name": "hue-radar",
   "version": "0.1.0",
-  "description": "🎨 Find and list all colors used in a project",
+  "description": "🎨 A tool for discovering all of the colors used in your project.",
   "main": "bin/index.js",
   "bin": {
     "hue-radar": "bin/index.js"
