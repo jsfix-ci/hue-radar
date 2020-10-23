@@ -64,5 +64,9 @@ Feel free to file issues with ideas or questions, or submit pull requests with n
 
 When submitting pull requests, at the very least please add unit tests for any new functionality, and follow the code styles set forth in the config.
 
+## Licenses
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhimynameisdave%2Fhue-radar.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhimynameisdave%2Fhue-radar?ref=badge_large)
+
 ---
 > _✌️ Built by [Dave](https://github.com/himynameisdave)._
