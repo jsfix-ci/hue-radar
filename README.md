@@ -54,6 +54,9 @@ Option | Description | Default
 --- | --- | ---
 `--pattern, -p` | Glob pattern for files to match. [More info](https://github.com/isaacs/minimatch#usage). _Note that defaults are included before these patterns., so specify overrides if they do not suit you._ | `"**/*.css,!node_modules/**/*"`
 `--debug, -d` | Print debug statements. | `false`
+`--format, -f` | Output format for the color report, `json` or `html` | `json`
+`--output, -o` | Path to the color report outputted file _(optional)_. | `hue-radar.report.{format}`
+
 
 ## Contributing
 
