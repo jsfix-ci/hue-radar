@@ -3,8 +3,9 @@ import createLogger from './components/createLogger';
 import globby from './components/globby';
 import lineReader from './components/lineReader';
 import formatReports from './components/formatReports';
+import createHTMLReport from './components/createHTMLReport';
 import { initProgram } from './helpers';
-import { writeJSONFile } from './utils';
+// import { writeJSONFile } from './utils';
 
 //  Parse the args right away
 const program = initProgram();
@@ -17,5 +18,9 @@ const program = initProgram();
   const colors = formatReports(reports);
   const colorsCount = Object.keys(colors).length;
   log.success(`🎨 Discovered ${colorsCount} colors in this project!`);
-  await writeJSONFile('hue-radar.report.json', colors);
+
+  // TODO: if json report, then this
+  // await writeJSONFile('hue-radar.report.json', colors);
+  await createHTMLReport(colors);
+
 }());
