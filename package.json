@@ -38,6 +38,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-unicorn": "^23.0.0",
+    "hsl-regex": "^1.0.0",
+    "hsla-regex": "^1.0.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.2",
     "ts-node": "^9.0.0",

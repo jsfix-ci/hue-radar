@@ -61,5 +61,12 @@ module.exports = {
     "@typescript-eslint/no-type-alias": "off",
     //  Good but only as a warning
     "@typescript-eslint/no-unsafe-assignment": "warn",
+    //  Just for this package.
+    "node/no-unpublished-import": ["error", {
+      "allowModules": [
+        'hsl-regex',
+        'hsla-regex',
+      ]
+    }]
   }
 }
