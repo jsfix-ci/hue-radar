@@ -7,7 +7,7 @@
     "hue-radar": "bin/index.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cpy ./src/templates/** ./bin/templates/",
     "lint": "eslint src/**/*.ts --report-unused-disable-directives",
     "lint:fix": "eslint src/**/*.ts --fix --report-unused-disable-directives",
     "lint:pre-commit": "eslint --fix --report-unused-disable-directives",
@@ -28,6 +28,7 @@
     "@types/node": "^14.14.1",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
+    "cpy-cli": "^3.1.1",
     "eslint": "^7.11.0",
     "eslint-config-himynameisdave": "^3.0.0-rc5",
     "eslint-import-resolver-typescript": "^2.3.0",
