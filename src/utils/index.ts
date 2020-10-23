@@ -1,4 +1,6 @@
 export * from './fs';
+export * from './path';
+export * from './fileExtension';
 export { default as flatten } from './flatten';
 export { default as isTruthy } from './isTruthy';
 export { default as noop } from './noop';
