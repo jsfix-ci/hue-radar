@@ -34,6 +34,9 @@ module.exports = {
     "arrow-parens": ["error", "as-needed"],
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "object-curly-newline": ["error", {
+      "minProperties": 4,
+    }],
     "implicit-arrow-linebreak": "off",
     'id-denylist': ['error', 'callback', 'cb', 'f', 'd', 'e', 'err'],
     "unicorn/prevent-abbreviations": ["error", {
