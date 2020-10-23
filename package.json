@@ -11,8 +11,11 @@
     "lint": "eslint src/**/*.ts --report-unused-disable-directives",
     "lint:fix": "eslint src/**/*.ts --fix --report-unused-disable-directives",
     "lint:pre-commit": "eslint --fix --report-unused-disable-directives",
-    "test:unit": "jest",
-    "start": "ts-node ./src/index.ts"
+    "test:unit": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:coverage:report": "npm run test:coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test:coverage:view": "npm run test:coverage && open ./coverage/lcov-report/index.html -a Google\\ Chrome",
+    "ci": "npm run lint && npm run test:coverage"
   },
   "dependencies": {
     "byline": "^5.0.0",
@@ -30,6 +33,7 @@
     "@types/node": "^14.14.1",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
+    "coveralls": "^3.1.0",
     "cpy-cli": "^3.1.1",
     "eslint": "^7.11.0",
     "eslint-config-himynameisdave": "^3.0.0-rc5",
