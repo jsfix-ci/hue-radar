@@ -1,8 +1,10 @@
+type HexColor = string;
 type RGBColor = string;
 type RGBAColor = string;
-type HexColor = string;
+type HSLColor = string;
+type HSLAColor = string;
 
-export type Color = RGBColor | RGBAColor | HexColor;
+export type Color = HexColor | RGBColor | RGBAColor | HSLColor | HSLAColor;
 
 //  A file report entry, which represents one line where colors were discovered in source code.
 export type ReportEntry = {

@@ -34,6 +34,9 @@ module.exports = {
     "arrow-parens": ["error", "as-needed"],
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "object-curly-newline": ["error", {
+      "minProperties": 4,
+    }],
     "implicit-arrow-linebreak": "off",
     'id-denylist': ['error', 'callback', 'cb', 'f', 'd', 'e', 'err'],
     "unicorn/prevent-abbreviations": ["error", {
@@ -58,5 +61,12 @@ module.exports = {
     "@typescript-eslint/no-type-alias": "off",
     //  Good but only as a warning
     "@typescript-eslint/no-unsafe-assignment": "warn",
+    //  Just for this package.
+    "node/no-unpublished-import": ["error", {
+      "allowModules": [
+        'hsl-regex',
+        'hsla-regex',
+      ]
+    }]
   }
 }
