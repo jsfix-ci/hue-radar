@@ -1,10 +1,6 @@
 import { readFile, toLines } from '../utils';
+import type { TemplateReplacement } from '../types';
 
-
-type TemplateReplacement = {
-  find: string;
-  replace: string;
-};
 
 //  Higher-order function which takes the template replacements and returns the replaceLine fn.
 function withReplacements(replacements: TemplateReplacement[]): (line: string) => string {
@@ -13,7 +9,7 @@ function withReplacements(replacements: TemplateReplacement[]): (line: string) =
     let draftLine = line;
     replacements.forEach(({ find, replace }) => {
       if (line.includes(find)) {
-        draftLine = draftLine.replace(find, replace);
+        draftLine = draftLine.replace(new RegExp(find, 'g'), replace);
       }
     });
     return draftLine;

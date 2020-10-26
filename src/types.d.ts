@@ -42,3 +42,9 @@ type ProgramOption = {
 export type ProgramOptions = {
   [K: string]: ProgramOption;
 };
+
+//  A template find/replace pair, for helpers/template
+export type TemplateReplacement = {
+  find: string;
+  replace: string;
+};
