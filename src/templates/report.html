@@ -58,11 +58,16 @@
         margin-bottom: 1rem;
       }
       .discovered-list__row {
-        align-items: center;
         background: #f1f1f1;
+        padding: 0.5rem;
+      }
+      .discovered-list__row:not(:last-child) {
+        border-bottom: 1px solid #d9dcec;
+      }
+      .discovered-list__line {
+        align-items: center;
         display: flex;
         justify-content: flex-start;
-        padding: 0.5rem;
       }
       .discovered-list__row:nth-child(odd) {
         background: #f6f6f6;
@@ -86,6 +91,16 @@
       .discovered-list__row__header__usage {
         font-size: 0.85rem;
         font-style: italic;
+      }
+      .discovered-list__row__files {
+        padding: 0 2rem;
+      }
+      .discovered-list__row__files__file__verbatim {
+        color: #f1f1f1;
+        background: #333;
+        border-radius: 4px;
+        margin: 0.5rem 0;
+        padding: 0.5rem;
       }
       footer.footer {
         font-size: 0.85rem;
@@ -199,23 +214,33 @@
 
         const DiscoveredListHeading = () => e('h2', classname('discovered-list-heading'), `Discovered ${Object.values(RAW_DATA).length} colors`);
 
-        const DiscoveredListRow = ([color, discoveries]) => e('div', classname('discovered-list__row'), [
-          //  Swatch
-          e('div', classname('discovered-list__row__swatch', {
-            style: {
-              backgroundColor: color
-            },
-          }), null),
-          e('div', classname('discovered-list__row__header'), [
-            e('h2', classname('discovered-list__row__header__color'), color),
-            e('div', classname('discovered-list__row__header__usage'), [
-              'Discovered ',
-              e('b', null, discoveries.length),
-              ` ${pluralize('use', discoveries.length)} of `,
-              e('b', null, color),
-              '.'
-            ])
-          ])
+        const DiscoveredListRow = ([color, discoveries], index) => {
+          const [isExpanded, toggleIsExpanded] = React.useState();
+          return e('div', classname(`discovered-list__row ${isExpanded ? 'discovered-list__row--expanded' : ''}`, { onClick: () => toggleIsExpanded(!isExpanded) }), [
+            e('div', classname('discovered-list__line'), [
+              e('div', classname('discovered-list__row__swatch', {
+                style: {
+                  backgroundColor: color
+                },
+              }), null),
+              e('div', classname('discovered-list__row__header'), [
+                e('h2', classname('discovered-list__row__header__color'), color),
+                e('div', classname('discovered-list__row__header__usage'), [
+                  'Discovered ',
+                  e('b', null, discoveries.length),
+                  ` ${pluralize('use', discoveries.length)} of `,
+                  e('b', null, color),
+                  '.'
+                ])
+              ])
+            ]),
+            isExpanded && e('ul', classname('discovered-list__row__files'), discoveries.map(DiscoveredListRowFile))
+          ]);
+        };
+
+        const DiscoveredListRowFile = (discovery) => e('li', classname('discovered-list__row__files__file'), [
+          e('div', null, e('code', classname('discovered-list__row__files__file'), `${discovery.file}#L${discovery.lineNumber}`)),
+          e('pre', classname('discovered-list__row__files__file__verbatim'), discovery.verbatim),
         ]);
 
         const Footer = () => e('footer', classname('footer'), [
