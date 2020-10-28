@@ -79,6 +79,11 @@
     "email": "d@velunny.com",
     "url": "https://himynameisdave.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/himynameisdave/hue-radar.git"
+  },
+  "homepage": "https://github.com/himynameisdave/hue-radar",
   "license": "MIT",
   "private": false
 }
