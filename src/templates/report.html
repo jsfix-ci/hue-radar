@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Report</title>
+    <title>{% PROJECT_NAME %} Color Usage Report | hue-radar</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
@@ -34,6 +34,7 @@
         margin: 0;
       }
       .title {
+        letter-spacing: -0.025rem;
         margin-bottom: 2rem;
       }
 
@@ -43,10 +44,16 @@
         margin: 0 auto;
         margin-bottom: 2rem;
       }
-      .hue-chart .VictoryContainer {
+      .hue-chart .chart .VictoryContainer {
         height: 500px !important;
         width: 500px !important;
-        margin: 0 auto 0 0;
+        margin: 0 10rem 0 0;
+      }
+
+      .hue-chart .chart {
+        align-items: center;
+        display: flex;
+        justify-content: flex-start;
       }
 
       /* 
@@ -57,11 +64,16 @@
         margin-bottom: 1rem;
       }
       .discovered-list__row {
-        align-items: center;
         background: #f1f1f1;
+        padding: 0.5rem;
+      }
+      .discovered-list__row:not(:last-child) {
+        border-bottom: 1px solid #d9dcec;
+      }
+      .discovered-list__line {
+        align-items: center;
         display: flex;
         justify-content: flex-start;
-        padding: 0.5rem;
       }
       .discovered-list__row:nth-child(odd) {
         background: #f6f6f6;
@@ -75,16 +87,45 @@
         border-bottom-right-radius: 1rem;
       }
       .discovered-list__row__swatch {
-        height: 100px;
-        border: 4px solid white;
-        box-shadow: 0 0 0 1px #333;
-        border-radius: 5px;
+        border: 1px solid #333;
+        cursor: pointer;
+        border-radius: 6px;
         margin-right: 1rem;
+        height: 100px;
+        min-width: 100px;
         width: 100px;
+        position: relative;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        background-color: #fff;
+      }
+      .discovered-list__row__swatch__color {
+        height: calc(100px - 12px);
+        width: calc(100px - 12px);
+      }
+      .discovered-list__row__header {
+        cursor: pointer;
       }
       .discovered-list__row__header__usage {
         font-size: 0.85rem;
         font-style: italic;
+      }
+      .discovered-list__row__files {
+        padding: 0 2rem;
+      }
+      .discovered-list__row__files__file__verbatim {
+        color: #f1f1f1;
+        background: #333;
+        border-radius: 4px;
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+      }
+      footer.footer {
+        font-size: 0.85rem;
+        letter-spacing: -0.025rem;
+        font-weight: 700;
+        margin: 2rem auto 5rem;
       }
     </style>
   </head>
@@ -92,16 +133,10 @@
     <main id="report"></main>
     <script type="text/javascript">
       (function main () {
-        const RAW_DATA = {% RAW_DATA_INJECT %};
+        const RAW_DATA = {% RAW_DATA %}; // Not wrapped in quotes, because the object literal is injected.
+        const PROJECT_NAME = "{% PROJECT_NAME %}"; // Wrapped in quotes because it is injected as-is into the string.
+        const TIME_GENERATED = "{% TIME_GENERATED %}"; // Wrapped in quotes because it is injected as-is into the string.
 
-
-        function getPieChart(data) {
-          return Object.entries(data)
-            .reduce((acc, [color, discoveries]) => ([
-              ...acc,
-              { x: color, y: discoveries.length, fill: color },
-            ]), []);
-        }
         
         /**
          * 
@@ -115,7 +150,6 @@
         })
         //  A very simple/dumb pluralize helper.
         const pluralize = (word, value) => `${word}${value === 1 ? '' : 's'}`;
-
         
         /**
          *  DOM/React Stuff
@@ -127,6 +161,15 @@
          *  COMPONENTS
          * 
          */
+        const HueRadarLink = () => e(
+          'a',
+          {
+            href: 'https://github.com/himynameisdave/hue-radar',
+            target: '_blank'
+          },
+          'hue-radar'
+        );
+        
         //  PageTitle/heading
         const Title = () => {
           //  cp == "class prefix"
@@ -135,28 +178,91 @@
             'div',
             classname(cp),
             [
-              e('h1', classname(`${cp}__heading`), 'hue-radar'),
-              e('p', classname(`${cp}__subheading`), '🎨 A tool for discovering all of the colors used in your project.'),
+              e('h1', classname(`${cp}__heading`), `${PROJECT_NAME} Color Usage Report`),
+              e('p', classname(`${cp}__subheading`), [
+                'The following is all colors discovered by ',
+                HueRadarLink(),
+                ' which appear in this project.'
+              ]),
             ]
           );
         };
 
+        function getPieChart(data) {
+          return Object.entries(data)
+            .reduce((acc, [color, discoveries]) => ([
+              ...acc,
+              {
+                x: color,
+                y: discoveries.length,
+                label: color,
+                fill: color,
+              },
+            ]), []);
+        }
+
         //  Returns the SVG pie chart with our data.
         const HueChart = () => {
-          return e(
-            Victory.VictoryPie,
-            {
-              data: getPieChart(RAW_DATA),
-              animate: {
-                duration: 2000
-              },
-              style: {
-                data: {
-                  fill: ({ datum }) => datum.fill,
-                }
-              },
-            }
-          );
+          const [activeSlice, setActiveSlice] = React.useState(null);
+
+          return e('div', classname('chart'), [
+            e(
+              Victory.VictoryPie,
+              {
+                data: getPieChart(RAW_DATA),
+                labels: ({ datum }) => datum.color,
+                labelComponent: e('span', { style: { display: 'none' } }),
+                events: [
+                  {
+                    target: 'data',
+                    eventHandlers: {
+                      onMouseEnter: () => {
+                        return [
+                          {
+                            target: 'data',
+                            mutation: ({ style, datum }) => {
+                              setActiveSlice({
+                                color: datum.x,
+                                count: datum.y,
+                              });
+                              return style.stroke === 'transparent'
+                                ? { style: { ...style, stroke: '#444', strokeWidth: '2px' } }
+                                : { style: { stroke: 'transparent', ...style } };
+                            }
+                          }
+                        ];
+                      },
+                      onMouseLeave: () => {
+                        return [
+                          {
+                            target: 'data',
+                            mutation: ({ style, datum }) => {
+                              setActiveSlice(null);
+                              return { style: { ...style, stroke: 'transparent', strokeWidth: 0 } };
+                            }
+                          }
+                        ];
+                      },
+                    },
+                  }
+                ],
+                style: {
+                  data: {
+                    // x: (...props) => console.log('styling a x, heres props', props),
+                    fill: ({ datum }) => datum.fill,
+                  }
+                },
+              }
+            ),
+            activeSlice && e('div', classname('chart__active'), [
+              e('h2', classname('chart__active__color'), activeSlice.color),
+              e('div', classname('chart__active__count'), [
+                'Discovered in ',
+                e('b', null, activeSlice.count),
+                ` ${pluralize('place', activeSlice.count)}`,
+              ]),
+            ]),
+          ]);
         };
         //  Section containing our hue-chart
         const ChartSection = () => {
@@ -176,25 +282,40 @@
           );
         }
 
-        const DiscoveredListHeading = () => e('h2', classname('discovered-list-heading'), 'Discovered colors');
+        const DiscoveredListHeading = () => e('h2', classname('discovered-list-heading'), `Discovered ${Object.values(RAW_DATA).length} colors`);
 
-        const DiscoveredListRow = ([color, discoveries]) => e('div', classname('discovered-list__row'), [
-          //  Swatch
-          e('div', classname('discovered-list__row__swatch', {
-            style: {
-              backgroundColor: color
-            },
-          }), null),
-          e('div', classname('discovered-list__row__header'), [
-            e('h2', classname('discovered-list__row__header__color'), color),
-            e('div', classname('discovered-list__row__header__usage'), [
-              'Discovered ',
-              e('b', null, discoveries.length),
-              ` ${pluralize('use', discoveries.length)} of `,
-              e('b', null, color),
-              '.'
-            ])
-          ])
+        const DiscoveredListRow = ([color, discoveries], index) => {
+          const [isExpanded, toggleIsExpanded] = React.useState();
+          return e('div', classname(`discovered-list__row ${isExpanded ? 'discovered-list__row--expanded' : ''}`), [
+            e('div', classname('discovered-list__line'), [
+              e('div', classname('discovered-list__row__swatch', { onClick: () => toggleIsExpanded(!isExpanded) }), [
+                e('div', classname('discovered-list__row__swatch__color', { style: { background: color } }), null)
+              ]),
+              e('div', classname('discovered-list__row__header', { onClick: () => toggleIsExpanded(!isExpanded) }), [
+                e('h3', classname('discovered-list__row__header__color'), color),
+                e('div', classname('discovered-list__row__header__usage'), [
+                  'Discovered ',
+                  e('b', null, discoveries.length),
+                  ` ${pluralize('use', discoveries.length)} of `,
+                  e('b', null, color),
+                  '.'
+                ])
+              ])
+            ]),
+            isExpanded && e('ul', classname('discovered-list__row__files'), discoveries.map(DiscoveredListRowFile))
+          ]);
+        };
+
+        const DiscoveredListRowFile = (discovery) => e('li', classname('discovered-list__row__files__file'), [
+          e('div', null, e('code', classname('discovered-list__row__files__file'), `${discovery.file}#L${discovery.lineNumber}`)),
+          e('pre', classname('discovered-list__row__files__file__verbatim'), discovery.verbatim),
+        ]);
+
+        const Footer = () => e('footer', classname('footer'), [
+          '🎨 Generated by ',
+          HueRadarLink(),
+          ' on ',
+          TIME_GENERATED,
         ]);
 
         const App = () => {
@@ -203,6 +324,7 @@
             ChartSection(),
             DiscoveredListHeading(),
             DiscoveredList(),
+            Footer(),
           ]);
         }
 
