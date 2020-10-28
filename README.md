@@ -58,6 +58,7 @@ Option | Description | Default | Notes
 `--debug, -d` | Print debug statements. | `false` | 
 `--format, -f` | Output format for the color report, `json` or `html` | `json` | 
 `--output, -o` | Path to the color report outputted file _(optional)_. | `hue-radar.report.{format}` | 
+`--sort-algorithm, -s` | Algorithm for sorting colors (`distance | deltaE`). | `distance` | Sort by either [Euclidean distance](https://gka.github.io/chroma.js/#chroma-distance) (`distance`) or [deltaE color difference](https://gka.github.io/chroma.js/#chroma-deltae) (`deltaE`).
 `--convert-to-hex, -h` | Converts all rgb/hsl colors in the report to hex, for grouping purposes. | `false` | You will still see the discovered source color, this just helps group same colors.
 
 ## Contributing

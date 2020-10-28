@@ -27,6 +27,11 @@ const OPTION: ProgramOptions = {
     DESCRIPTION: 'Path to the color report outputted file',
     DEFAULT: 'hue-radar.report.json',
   },
+  SORT_ALGORITHM: {
+    FLAGS: ['-s', '--sort-algorithm <sort-algorithm>'],
+    DESCRIPTION: 'Algorithm for sorting colors ("distance" or "deltaE")',
+    DEFAULT: 'distance',
+  },
   CONVERT_TO_HEX: {
     FLAGS: ['-h', '--convert-to-hex'],
     DESCRIPTION: 'Converts all colors to hex, for easier grouping',

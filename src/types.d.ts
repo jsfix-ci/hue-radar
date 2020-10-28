@@ -48,3 +48,5 @@ export type TemplateReplacement = {
   find: string;
   replace: string;
 };
+
+export type SortAlgorithm = 'distance' | 'deltaE';
