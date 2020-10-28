@@ -88,6 +88,7 @@
       }
       .discovered-list__row__swatch {
         border: 1px solid #333;
+        cursor: pointer;
         border-radius: 6px;
         margin-right: 1rem;
         height: 100px;
@@ -102,6 +103,9 @@
       .discovered-list__row__swatch__color {
         height: calc(100px - 12px);
         width: calc(100px - 12px);
+      }
+      .discovered-list__row__header {
+        cursor: pointer;
       }
       .discovered-list__row__header__usage {
         font-size: 0.85rem;
@@ -282,12 +286,12 @@
 
         const DiscoveredListRow = ([color, discoveries], index) => {
           const [isExpanded, toggleIsExpanded] = React.useState();
-          return e('div', classname(`discovered-list__row ${isExpanded ? 'discovered-list__row--expanded' : ''}`, { onClick: () => toggleIsExpanded(!isExpanded) }), [
+          return e('div', classname(`discovered-list__row ${isExpanded ? 'discovered-list__row--expanded' : ''}`), [
             e('div', classname('discovered-list__line'), [
-              e('div', classname('discovered-list__row__swatch'), [
+              e('div', classname('discovered-list__row__swatch', { onClick: () => toggleIsExpanded(!isExpanded) }), [
                 e('div', classname('discovered-list__row__swatch__color', { style: { background: color } }), null)
               ]),
-              e('div', classname('discovered-list__row__header'), [
+              e('div', classname('discovered-list__row__header', { onClick: () => toggleIsExpanded(!isExpanded) }), [
                 e('h3', classname('discovered-list__row__header__color'), color),
                 e('div', classname('discovered-list__row__header__usage'), [
                   'Discovered ',
