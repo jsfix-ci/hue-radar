@@ -42,3 +42,5 @@ type ProgramOption = {
 export type ProgramOptions = {
   [K: string]: ProgramOption;
 };
+
+export type SortAlgorithm = 'distance' | 'deltaE';
