@@ -7,6 +7,9 @@
     <a href="https://travis-ci.com/github/himynameisdave/hue-radar">
       <img src="https://travis-ci.com/himynameisdave/hue-radar.svg?branch=main" alt="Travis Badge" />
     </a>
+    <a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fhimynameisdave%2Fhue-radar?ref=badge_shield">
+      <img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhimynameisdave%2Fhue-radar.svg?type=shield" alt="FOSSA License Scan Status" />
+    </a>
     <a href="https://coveralls.io/github/himynameisdave/hue-radar?branch=main">
       <img src="https://coveralls.io/repos/github/himynameisdave/hue-radar/badge.svg?branch=main" alt="Coveralls Badge" />
     </a>
@@ -18,8 +21,6 @@
 **`hue-radar`** is a CLI tool for discovering all of the colors used in your project.
 
 ## Purpose
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhimynameisdave%2Fhue-radar.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhimynameisdave%2Fhue-radar?ref=badge_shield)
-
 
 If not maintained well, large and long-running web app projects are likely to have colors littered throughout the codebase. This can make it difficult for your design or front-end team to audit, scale and maintain in the long run. This tool was created to help you identify and wrangle every color in your codebase.
 
@@ -69,13 +70,9 @@ Feel free to file issues with ideas or questions, or submit pull requests with n
 
 When submitting pull requests, at the very least please add unit tests for any new functionality, and follow the code styles set forth in the config.
 
-## Licenses
+## License
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhimynameisdave%2Fhue-radar.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhimynameisdave%2Fhue-radar?ref=badge_large)
 
 ---
 > _✌️ Built by [Dave](https://github.com/himynameisdave)._
-
-
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhimynameisdave%2Fhue-radar.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhimynameisdave%2Fhue-radar?ref=badge_large)
