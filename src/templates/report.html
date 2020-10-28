@@ -44,10 +44,16 @@
         margin: 0 auto;
         margin-bottom: 2rem;
       }
-      .hue-chart .VictoryContainer {
+      .hue-chart .chart .VictoryContainer {
         height: 500px !important;
         width: 500px !important;
-        margin: 0 auto 0 0;
+        margin: 0 10rem 0 0;
+      }
+
+      .hue-chart .chart {
+        align-items: center;
+        display: flex;
+        justify-content: flex-start;
       }
 
       /* 
@@ -86,6 +92,7 @@
         box-shadow: 0 0 0 1px #333;
         border-radius: 5px;
         margin-right: 1rem;
+        min-width: 100px;
         width: 100px;
       }
       .discovered-list__row__header__usage {
@@ -118,13 +125,6 @@
         const PROJECT_NAME = "{% PROJECT_NAME %}"; // Wrapped in quotes because it is injected as-is into the string.
         const TIME_GENERATED = "{% TIME_GENERATED %}"; // Wrapped in quotes because it is injected as-is into the string.
 
-        function getPieChart(data) {
-          return Object.entries(data)
-            .reduce((acc, [color, discoveries]) => ([
-              ...acc,
-              { x: color, y: discoveries.length, fill: color },
-            ]), []);
-        }
         
         /**
          * 
@@ -138,7 +138,6 @@
         })
         //  A very simple/dumb pluralize helper.
         const pluralize = (word, value) => `${word}${value === 1 ? '' : 's'}`;
-
         
         /**
          *  DOM/React Stuff
@@ -177,22 +176,81 @@
           );
         };
 
+        function getPieChart(data) {
+          return Object.entries(data)
+            .reduce((acc, [color, discoveries]) => ([
+              ...acc,
+              {
+                x: color,
+                y: discoveries.length,
+                label: color,
+                fill: color,
+              },
+            ]), []);
+        }
+
         //  Returns the SVG pie chart with our data.
         const HueChart = () => {
-          return e(
-            Victory.VictoryPie,
-            {
-              data: getPieChart(RAW_DATA),
-              animate: {
-                duration: 2000
-              },
-              style: {
-                data: {
-                  fill: ({ datum }) => datum.fill,
-                }
-              },
-            }
-          );
+          const [activeSlice, setActiveSlice] = React.useState(null);
+
+          return e('div', classname('chart'), [
+            e(
+              Victory.VictoryPie,
+              {
+                data: getPieChart(RAW_DATA),
+                labels: ({ datum }) => datum.color,
+                labelComponent: e('span', { style: { display: 'none' } }),
+                events: [
+                  {
+                    target: 'data',
+                    eventHandlers: {
+                      onMouseEnter: () => {
+                        return [
+                          {
+                            target: 'data',
+                            mutation: ({ style, datum }) => {
+                              setActiveSlice({
+                                color: datum.x,
+                                count: datum.y,
+                              });
+                              return style.stroke === 'transparent'
+                                ? { style: { ...style, stroke: '#444', strokeWidth: '2px' } }
+                                : { style: { stroke: 'transparent', ...style } };
+                            }
+                          }
+                        ];
+                      },
+                      onMouseLeave: () => {
+                        return [
+                          {
+                            target: 'data',
+                            mutation: ({ style, datum }) => {
+                              setActiveSlice(null);
+                              return { style: { ...style, stroke: 'transparent', strokeWidth: 0 } };
+                            }
+                          }
+                        ];
+                      },
+                    },
+                  }
+                ],
+                style: {
+                  data: {
+                    // x: (...props) => console.log('styling a x, heres props', props),
+                    fill: ({ datum }) => datum.fill,
+                  }
+                },
+              }
+            ),
+            activeSlice && e('div', classname('chart__active'), [
+              e('h2', classname('chart__active__color'), activeSlice.color),
+              e('div', classname('chart__active__count'), [
+                'Discovered in ',
+                e('b', null, activeSlice.count),
+                ` ${pluralize('place', activeSlice.count)}`,
+              ]),
+            ]),
+          ]);
         };
         //  Section containing our hue-chart
         const ChartSection = () => {
@@ -224,7 +282,7 @@
                 },
               }), null),
               e('div', classname('discovered-list__row__header'), [
-                e('h2', classname('discovered-list__row__header__color'), color),
+                e('h3', classname('discovered-list__row__header__color'), color),
                 e('div', classname('discovered-list__row__header__usage'), [
                   'Discovered ',
                   e('b', null, discoveries.length),
