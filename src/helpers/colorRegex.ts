@@ -11,13 +11,12 @@ type ColorRegexType = 'HEX' | 'RGB' | 'RGBA' | 'HSL' | 'HSLA';
 
 export type ColorMatcher = (text: string) => string;
 
-const getMatcher = (colorRegexGetter: ColorRegExpGetter): ColorMatcher =>
-  (text: string): string => {
-    const match = colorRegexGetter().exec(text);
-    return match
-      ? match[0]
-      : '';
-  };
+const getMatcher = (colorRegexGetter: ColorRegExpGetter): ColorMatcher => (text: string): string => {
+  const match = colorRegexGetter().exec(text);
+  return match
+    ? match[0]
+    : '';
+};
 
 const colorRegex: { [K in ColorRegexType]: ColorMatcher } = {
   HEX: getMatcher(hexRegex),
