@@ -7,7 +7,7 @@ import hslaRegex from 'hsla-regex';
 
 type ColorRegExpGetter = () => RegExp;
 
-type ColorRegexType = 'HEX' | 'RGB' | 'RGBA' | 'HSL' | 'HSLA';
+type ColorRegexType = 'HEX' | 'HSL' | 'HSLA' | 'RGB' | 'RGBA';
 
 export type ColorMatcher = (text: string) => string;
 

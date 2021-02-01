@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import { noop } from '../utils';
 
 
-type LogType = 'info' | 'warn' | 'error' | 'success';
+type LogType = 'error' | 'info' | 'success' | 'warn';
 
 type Log = (...paramaters: any[]) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
 

@@ -35,27 +35,5 @@ module.exports = {
     'import/extensions': 'off',
     'node/file-extension-in-import': 'off',
     'node/no-unsupported-features/es-syntax': 'off',
-    'object-curly-newline': ['error', {
-      ObjectExpression: {
-        minProperties: 2,
-        multiline: true,
-        consistent: true,
-      },
-      ObjectPattern: {
-        minProperties: 3,
-        multiline: true,
-        consistent: true,
-      },
-      ImportDeclaration: {
-        minProperties: 4,
-        multiline: true,
-        consistent: true,
-      },
-      ExportDeclaration: {
-        minProperties: 2,
-        multiline: true,
-        consistent: true,
-      },
-    }],
   }
 }

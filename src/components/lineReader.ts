@@ -28,12 +28,15 @@ export default function lineReader(filePath: string): Promise<ReportEntry[]> {
       //  Get the colors from the line
       const colors: Set<Color> = extractColors(line);
       if (colors.size > 0) {
-        fileReport = fileReport.concat({
-          colors,
-          lineNumber,
-          file: filePath,
-          verbatim: line,
-        });
+        fileReport = [
+          ...fileReport,
+          {
+            colors,
+            lineNumber,
+            file: filePath,
+            verbatim: line,
+          },
+        ];
       }
     }
     stream.on('data', handleLine);
