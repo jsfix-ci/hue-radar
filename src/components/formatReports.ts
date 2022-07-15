@@ -1,4 +1,4 @@
-import type commander from 'commander';
+import { program as commander } from 'commander';
 import { normalizeColor, sortColors, parseSortAlgorithm } from '../helpers';
 import { flatten } from '../utils';
 import type { ReportEntry, ColorsReport } from '../types';

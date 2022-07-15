@@ -1,4 +1,4 @@
-import type commander from 'commander';
+import { program as commander } from 'commander';
 import createHTMLReport from './createHTMLReport';
 import type { ColorsReport } from '../types';
 import { getFormatIs, SUPPORTED_FORMATS } from '../helpers';
