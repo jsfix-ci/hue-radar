@@ -1,4 +1,4 @@
-import commander from 'commander';
+import { program as commander } from 'commander';
 import getVersion from './getVersion';
 // TODO: move all program defaults to a constants file.
 import { DEFAULT_GLOBS } from '../components/globby';
